@@ -1,0 +1,32 @@
+use MASTER;
+
+CREATE DATABASE java;
+
+USE java;
+
+create TABLE tb_aluno(
+	[idAluno] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [nmAluno] [varchar](50) NULL,
+    [endereco] [varchar](100) NULL,
+    [idTurma] [int] NOT NULL,
+    
+    foreign key (idTurma) references tb_turma(idTurma));
+
+create TABLE tb_cursos(
+    [idCurso] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [nmCurso] [varchar] (50) NULL,
+    [periodoCurso] [varchar] (20) NULL,
+    [duracao] [int] NULL);
+
+create TABLE tb_professores(
+    [idProfessor] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [nmProfessor] [varchar] (100) NULL,
+    [cpf] [varchar] (50) NULL);
+
+create TABLE tb_turmas(
+    [idTurma] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [idProfessor] [int] NOT NULL,
+    [idCurso] [int] NOT NULL,
+
+    foreign key (idProfessor) references tb_professores(idProfessor),
+    foreign key (idCurso) references tb_cursos(idCurso));
