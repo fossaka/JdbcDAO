@@ -4,8 +4,7 @@ public class Professores {
 	
 	private int idProfessor;
 	private String nmProfessor;
-	private int cpf;
-	private int idTurma;
+	private Double cpf;
 	
 
 	public Integer getIdProfessor() {
@@ -20,16 +19,10 @@ public class Professores {
 	public void setNmProfessor(String nmProfessor) {
 		this.nmProfessor = nmProfessor;
 	}
-	public int getCpf() {
+	public Double getCpf() {
 		return cpf;
 	}
-	public void setCpf(Integer cpf) {
+	public void setCpf(Double cpf) {
 		this.cpf = cpf;
-	}
-	public int getIdTurma() {
-		return idTurma;
-	}
-	public void setIdTurma(Integer idTurma) {
-		this.idTurma = idTurma;
 	}
 }

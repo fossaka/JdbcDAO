@@ -13,8 +13,13 @@ public class ProfessoresJdbcDAO {
 	
 	private Connection conn;
 	
+	public ProfessoresJdbcDAO(Connection conn) {
+		this.conn = conn;
+	}
+	
+	
 	public void salvar(Professores c) throws SQLException {
-		String sql = "insert into tb_professores (nmProfessor, cpf, idTurma) values ('"+c.getnmProfessor()+"','"+c.getCpf()+"')";
+		String sql = "insert into tb_professores (nmProfessor, cpf) values ('"+c.getnmProfessor()+"','"+c.getCpf()+"')";
 		System.out.println(sql);
 		PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
 		prepareStatement.executeUpdate();
@@ -56,7 +61,7 @@ public class ProfessoresJdbcDAO {
 			while(rs.next()) {
 				int idProfessor = rs.getInt("idProfessor");
 				String nmProfessor = rs.getString("nmProfessor");
-				Integer cpf = rs.getInt("cpf");
+				Double cpf = rs.getDouble("cpf");
 				Professores professor = new Professores();
 				professor.setIdProfessor(idProfessor);
 				professor.setNmProfessor(nmProfessor);

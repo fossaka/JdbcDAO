@@ -4,69 +4,113 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.ProfessoresJdbcDAO;
 import controller.JdbUtil;
-import model.Professores;;
+import model.Professores;
 
-public class CadastroProfessor extends JFrame {
-		JTextField txtNmProfessor = new JTextField();
-		JLabel nomeProfessor = new JLabel("Nome do Professor: ");
+/**
+ * Hello world!
+ *
+ */
+
+public class CadastroProfessor extends JFrame
+{
+	JComboBox cboProfessor = new JComboBox();
+	JLabel listaCadastro = new JLabel("Lista de Professores Cadastrados");
+	
+	JTextField txtNmProfessor = new JTextField();
+	JLabel nmProfessor = new JLabel("Nome: ");
+	
+	JTextField txtCpf = new JTextField();
+	JLabel cpf = new JLabel("Cpf: ");
+
+	JButton btnSalvar = new JButton("Salvar");
+	JButton btnAlterar = new JButton("Alterar");
+
+	public CadastroProfessor(){
+		super("Cadastro de Professor");
 		
-		JTextField txtCpf = new JTextField();
-		JLabel cpf = new JLabel("CPF: ");
+		Container paine = this.getContentPane();
+		paine.add(listaCadastro);
+		listaCadastro.setBounds(40, 2, 200, 20);
+		paine.add(cboProfessor);
+		cboProfessor.setBounds(65,25,150,20);
 		
-		JTextField txtIdTurma = new JTextField();
-		JLabel idTurma = new JLabel("Turma: ");
-
-		JButton btnSalvar = new JButton("Salvar");
+		cboProfessor.addItem("");
 		
+		try {
 
-		public CadastroProfessor(){
-			super("Cadastro Professor");
+			Connection connection = JdbUtil.getConnection();
+			ProfessoresJdbcDAO professoresJdbcDAO = new ProfessoresJdbcDAO(connection);
 			
-			Container ProfessorPaine = this.getContentPane();
+			List<Professores> listaProfessores = professoresJdbcDAO.listar();
+			for (int i = 0; i < listaProfessores.size(); i++) {
+				cboProfessor.addItem(listaProfessores.get(0).getnmProfessor());
+			}
 			
-			ProfessorPaine.add(nomeProfessor);
-			ProfessorPaine.add(txtNmProfessor);	
-			nomeProfessor.setBounds(10, 15, 45, 30);
-			txtNmProfessor.setBounds(90, 15, 225, 30);
+			nmProfessor.setBounds(20, 50, 150, 20);
+			paine.add(nmProfessor);
 			
-			ProfessorPaine.add(cpf);
-			ProfessorPaine.add(txtCpf);	
-			cpf.setBounds(10, 50, 70, 30);
-			txtCpf.setBounds(90, 50, 225, 30);	
+			txtNmProfessor.setBounds(160, 50, 150, 20);
+			paine.add(txtNmProfessor);
 			
-			ProfessorPaine.add(btnSalvar);
-			btnSalvar.setBounds(250, 250, 130, 30);
-			btnSalvar.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					try {
-					Professores professor = new Professores();
-					professor.setNmProfessor(txtNmProfessor.getText());
-					professor.setCpf(Integer.parseInt(txtCpf.getText()));
-					
-
-					Connection connection = JdbUtil.getConnection();
-					ProfessoresJdbcDAO professoresJdbcDao = new ProfessoresJdbcDAO();
-					
-					professoresJdbcDao.salvar(professor);
-					
-					}catch(Exception ex) {
-						ex.printStackTrace();
-					}
-					
-				}
-			});
+			cpf.setBounds(20, 80, 150, 20);
+			paine.add(cpf);
 			
-			this.setLayout(null);
-			this.setVisible(true);
-			this.setSize(600, 330);
+			txtCpf.setBounds(160, 80, 150, 20);
+			paine.add(txtCpf);
+			
+			btnSalvar.setBounds(100, 160, 150, 50);
+			paine.add(btnSalvar);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		 
+		
+		paine.add(nmProfessor);
+		paine.add(txtNmProfessor);	
+		nmProfessor.setBounds(10, 70, 70, 25);
+		txtNmProfessor.setBounds(90, 70, 160, 25);
+		
+		paine.add(cpf);
+		paine.add(txtCpf);	
+		cpf.setBounds(10, 100, 70, 25);
+		txtCpf.setBounds(90, 100, 160, 25);
+		
+		paine.add(btnSalvar);
+		
+		btnSalvar.setBounds(20, 250, 110, 30);
+		btnSalvar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+				Professores professores = new Professores();
+				professores.setNmProfessor(txtNmProfessor.getText());
+				professores.setCpf(Double.parseDouble(txtCpf.getText()));
+				
+				Connection connection = JdbUtil.getConnection();
+				ProfessoresJdbcDAO professoresJdbcDao = new ProfessoresJdbcDAO(connection);
+				
+				professoresJdbcDao.salvar(professores);
+				
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+		});
+		paine.add(btnAlterar);
+		
+		btnAlterar.setBounds(140, 250, 110, 30);
+		
+		this.setLayout(null);
+		this.setVisible(true);
+		this.setSize(300, 330);
+	}
 }

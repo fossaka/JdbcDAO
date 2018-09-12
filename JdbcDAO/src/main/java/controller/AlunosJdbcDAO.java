@@ -54,7 +54,7 @@ public class AlunosJdbcDAO {
 	}
 	
 	public List<Alunos> listar() {
-		String sql = "select * from alunos";
+		String sql = "select * from tb_alunos";
         System.out.println(sql);		
         List<Alunos> listaAlunos = new ArrayList<Alunos>();
 		try {

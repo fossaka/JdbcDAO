@@ -13,6 +13,11 @@ public class TurmasJdbcDAO {
 
 private Connection conn;
 	
+public TurmasJdbcDAO(Connection conn) {
+	this.conn = conn;
+}
+
+
 	public void salvar(Turmas c) throws SQLException {
 		String sql = "insert into tb_turmas (idProfessor,  idCurso) values ('"+c.getIdProfessor()+"','"+c.getIdCurso()+"')";
 		System.out.println(sql);

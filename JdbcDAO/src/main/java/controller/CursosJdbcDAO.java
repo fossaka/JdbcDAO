@@ -13,6 +13,10 @@ public class CursosJdbcDAO {
 
 	private Connection conn;
 	
+	public CursosJdbcDAO(Connection conn) {
+		this.conn = conn;
+	}
+	
 	public void salvar(Cursos c) throws SQLException {
 		String sql = "insert into tb_cursos (nmCurso, periodoCurso, duracao) values ('"+c.getNmCurso()+"','"+c.getPeriodoCurso()+"','"+c.getDuracao()+"')";
 		System.out.println(sql);

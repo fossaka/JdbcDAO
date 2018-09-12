@@ -15,7 +15,7 @@ public class App extends JFrame {
 	JButton btnSalvar = new JButton("Salvar");
 	
 	public App(){
-		super("Ápì");
+		super("ÃpÃ¬");
 			
 		Container paine = this.getContentPane();
 		
@@ -24,7 +24,7 @@ public class App extends JFrame {
 		paine.add(btnTurma);
 		paine.add(btnCurso);
 		
-		btnProfessor.setBounds(200,150, 130, 30);
+		btnProfessor.setBounds(35 ,80 , 150, 30);
 		btnProfessor.addActionListener(new ActionListener(){
 				
 			public void actionPerformed(ActionEvent e) {
@@ -33,7 +33,7 @@ public class App extends JFrame {
 			}
 		});
 		
-		btnCurso.setBounds(400,150, 130, 30);
+		btnCurso.setBounds(245 ,80, 150, 30);
 		btnCurso.addActionListener(new ActionListener(){
 				
 			public void actionPerformed(ActionEvent e) {
@@ -42,7 +42,7 @@ public class App extends JFrame {
 			}
 		});
 		
-		btnTurma.setBounds(200,250, 130, 30);
+		btnTurma.setBounds(35 ,170 , 150, 30);
 		btnTurma.addActionListener(new ActionListener(){
 				
 			public void actionPerformed(ActionEvent e) {
@@ -51,7 +51,7 @@ public class App extends JFrame {
 			}
 		});
 		
-		btnAluno.setBounds(400,250, 130, 30);
+		btnAluno.setBounds(245 , 170, 150, 30);
 		btnAluno.addActionListener(new ActionListener(){
 				
 			public void actionPerformed(ActionEvent e) {
@@ -61,7 +61,7 @@ public class App extends JFrame {
 		});
 		this.setLayout(null);
 		this.setVisible(true);
-		this.setSize(600, 330);
+		this.setSize(450, 330);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	public static void main( String[] args ){
