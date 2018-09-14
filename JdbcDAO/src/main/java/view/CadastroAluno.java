@@ -3,6 +3,8 @@ package view;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.util.List;
 
@@ -23,11 +25,14 @@ import model.Alunos;
 
 public class CadastroAluno extends JFrame
 {
-	JComboBox cboAluno = new JComboBox();
+	JComboBox<String> cboAluno = new JComboBox<String>();
 	JLabel listaCadastro = new JLabel("Lista de Alunos Cadastrados");
 	
-	JTextField txtNome = new JTextField();
-	JLabel nome = new JLabel("Nome: ");
+	JTextField txtIdAluno = new JTextField();
+	JLabel idAluno = new JLabel("Id: ");
+	
+	JTextField txtNmAluno = new JTextField();
+	JLabel nmAluno = new JLabel("Nome: ");
 	
 	JTextField txtEnd = new JTextField();
 	JLabel end = new JLabel("Endereço: ");
@@ -56,72 +61,70 @@ public class CadastroAluno extends JFrame
 			
 			List<Alunos> listaAlunos = alunoJdbcDAO.listar();
 			for (int i = 0; i < listaAlunos.size(); i++) {
-				cboAluno.addItem(listaAlunos.get(0).getNmAluno());
+				cboAluno.addItem(listaAlunos.get(i).getNmAluno());
+				
+				System.out.println(listaAlunos);
 			}
 			
-			nome.setBounds(20, 50, 150, 20);
-			paine.add(nome);
+			cboAluno.addItemListener(new ItemListener(){
+			       public void itemStateChanged(ItemEvent ie){
+			    	   
+			            String str = (String)cboAluno.getSelectedItem();
+
+			           txtNmAluno.setText(str);
+			       }
+				});  
 			
-			txtNome.setBounds(160, 50, 150, 20);
-			paine.add(txtNome);
+			paine.add(idAluno);
+			paine.add(txtIdAluno);
+			idAluno.setBounds(10, 70, 45, 25);
+			txtIdAluno.setBounds(90, 70, 160, 25);
+			txtIdAluno.setEditable(false);
 			
-			end.setBounds(20, 80, 150, 20);
+			paine.add(nmAluno);
+			paine.add(txtNmAluno);	
+			nmAluno.setBounds(10,100, 45, 25);
+			txtNmAluno.setBounds(90, 100, 160, 25);
+			
 			paine.add(end);
+			paine.add(txtEnd);	
+			end.setBounds(10, 130, 70, 25);
+			txtEnd.setBounds(90, 130, 160, 25);
 			
-			txtEnd.setBounds(160, 80, 150, 20);
-			paine.add(txtEnd);
-			
-			idTurma.setBounds(20, 110, 150, 20);
 			paine.add(idTurma);
-			
-			txtIdTurma.setBounds(160, 110, 150, 20);
 			paine.add(txtIdTurma);
+			idTurma.setBounds(10, 160, 225, 25);
+			txtIdTurma.setBounds(90, 160, 160, 25);
 			
-			btnSalvar.setBounds(100, 160, 150, 50);
 			paine.add(btnSalvar);
+			
+			btnSalvar.setBounds(20, 250, 110, 30);
+			btnSalvar.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					try {
+					Alunos alunos = new Alunos();
+					alunos.setNmAluno(txtNmAluno.getText());
+					alunos.setEnderecoAluno(txtEnd.getText());
+					alunos.setIdTurma(Integer.parseInt(txtIdTurma.getText()));
+					
+					Connection connection = JdbUtil.getConnection();
+					AlunosJdbcDAO alunosJdbcDao = new AlunosJdbcDAO(connection);
+					
+					alunosJdbcDao.salvar(alunos);
+					
+					}catch(Exception ex) {
+						ex.printStackTrace();
+					}
+					
+				}
+			});
+			paine.add(btnAlterar);
+			
+			btnAlterar.setBounds(140, 250, 110, 30);
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		paine.add(nome);
-		paine.add(txtNome);	
-		nome.setBounds(10, 70, 45, 25);
-		txtNome.setBounds(90, 70, 160, 25);
-		//txtNome.setBounds(x, y, width, height);
-		paine.add(end);
-		paine.add(txtEnd);	
-		end.setBounds(10, 100, 70, 25);
-		txtEnd.setBounds(90, 100, 160, 25);
-		
-		paine.add(idTurma);
-		paine.add(txtIdTurma);
-		idTurma.setBounds(10, 130, 225, 25);
-		txtIdTurma.setBounds(90, 130, 160, 25);
-		
-		paine.add(btnSalvar);
-		
-		btnSalvar.setBounds(20, 250, 110, 30);
-		btnSalvar.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				try {
-				Alunos alunos = new Alunos();
-				alunos.setNmAluno(txtNome.getText());
-				alunos.setEnderecoAluno(txtEnd.getText());
-				
-				Connection connection = JdbUtil.getConnection();
-				AlunosJdbcDAO alunosJdbcDao = new AlunosJdbcDAO(connection);
-				
-				alunosJdbcDao.salvar(alunos);
-				
-				}catch(Exception ex) {
-					ex.printStackTrace();
-				}
-				
-			}
-		});
-		paine.add(btnAlterar);
-		
-		btnAlterar.setBounds(140, 250, 110, 30);
 		
 		this.setLayout(null);
 		this.setVisible(true);

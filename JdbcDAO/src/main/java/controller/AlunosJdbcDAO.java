@@ -21,7 +21,7 @@ public class AlunosJdbcDAO {
 	
 	
 	public void salvar(Alunos c) throws SQLException {
-		String sql = "insert into tb_alunos (nmAluno, enderecoAluno,idTurma) values ('"+c.getNmAluno()+"','"+c.getEnderecoAluno()+"','"+c.getIdTurma()+"')";
+		String sql = "insert into tb_aluno (nmAluno, endereco,idTurma) values ('"+c.getNmAluno()+"','"+c.getEnderecoAluno()+"','"+c.getIdTurma()+"')";
 		System.out.println(sql);
 		PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
 		prepareStatement.executeUpdate();
@@ -29,7 +29,7 @@ public class AlunosJdbcDAO {
 	}
 	
 	public void alterar(Alunos c) {
-		String sql = "update tb_alunos set nmAluno='"+c.getNmAluno()+"',enderecoAluno='"+c.getEnderecoAluno()+"',idTurma='"+c.getIdTurma()+"';";
+		String sql = "update tb_alunos set nmAluno = '"+c.getNmAluno()+"',endereco='"+c.getEnderecoAluno()+"',idTurma='"+c.getIdTurma()+"';";
 		System.out.println(sql);
 		PreparedStatement prepareStatement;
 		try {
@@ -42,7 +42,7 @@ public class AlunosJdbcDAO {
 	}
 	
 	public void excluir(int idAluno) {
-		String sql = "delete from tb_alunos where id='"+idAluno+"';";
+		String sql = "delete from tb_aluno where id='"+idAluno+"';";
 		System.out.println(sql);
         try {
     		PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
@@ -54,7 +54,7 @@ public class AlunosJdbcDAO {
 	}
 	
 	public List<Alunos> listar() {
-		String sql = "select * from tb_alunos";
+		String sql = "select * from tb_aluno";
         System.out.println(sql);		
         List<Alunos> listaAlunos = new ArrayList<Alunos>();
 		try {
@@ -62,14 +62,16 @@ public class AlunosJdbcDAO {
 			ResultSet rs = prepareStatement.executeQuery();
 			while(rs.next()) {
 				int idAluno = rs.getInt("idAluno");
-				String nome = rs.getString("nome");
+				String nmAluno = rs.getString("nmAluno");
 				String endereco = rs.getString("endereco");
 				int idTurma =rs.getInt("idTurma");
 				Alunos aluno = new Alunos();
 				aluno.setIdAlunos(idAluno);
-				aluno.setNmAluno(nome);
+				aluno.setNmAluno(nmAluno);
 				aluno.setEnderecoAluno(endereco);
 				aluno.setIdTurma(idTurma);
+				
+				listaAlunos.add(aluno);
 			}
 			prepareStatement.close();
 		} catch (SQLException e) {

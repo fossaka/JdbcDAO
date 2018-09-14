@@ -19,7 +19,7 @@ public TurmasJdbcDAO(Connection conn) {
 
 
 	public void salvar(Turmas c) throws SQLException {
-		String sql = "insert into tb_turmas (idProfessor,  idCurso) values ('"+c.getIdProfessor()+"','"+c.getIdCurso()+"')";
+		String sql = "insert into tb_turmas (nmTurma, idProfessor,  idCurso) values ('"+c.getNmTurma()+"','"+c.getIdProfessor()+"','"+c.getIdCurso()+"')";
 		System.out.println(sql);
 		PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
 		prepareStatement.executeUpdate();
@@ -27,7 +27,7 @@ public TurmasJdbcDAO(Connection conn) {
 	}
 	
 	public void alterar(Turmas c) {
-		String sql = "update tb_turmas set idProfessor='"+c.getIdProfessor()+"',idCurso='"+c.getIdCurso()+"';";
+		String sql = "update tb_turmas set nmTurma='"+c.getNmTurma()+"', idProfessor='"+c.getIdProfessor()+"', idCurso='"+c.getIdCurso()+"';";
 		System.out.println(sql);
 		PreparedStatement prepareStatement;
 		try {
@@ -62,10 +62,14 @@ public TurmasJdbcDAO(Connection conn) {
 				int idTurmas = rs.getInt("idTurmas");
 				int idProfessor = rs.getInt("idProfessor");
 				int idCurso =rs.getInt("idCurso");
+				
 				Turmas turma = new Turmas();
+				
 				turma.setIdTurmas(idTurmas);
 				turma.setIdProfessor(idProfessor);
 				turma.setIdCurso(idCurso);
+				
+				listaTurmas.add(turma);
 			}
 			prepareStatement.close();
 		} catch (SQLException e) {

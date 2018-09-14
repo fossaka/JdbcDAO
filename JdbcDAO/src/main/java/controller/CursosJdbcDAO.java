@@ -67,6 +67,8 @@ public class CursosJdbcDAO {
 				curso.setNmCurso(nmCurso);
 				curso.setPeriodoCurso(periodoCurso);
 				curso.setDuracao(duracao);
+				
+				cursosLista.add(curso);
 			}
 			prepareStatement.close();
 		} catch (SQLException e) {

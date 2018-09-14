@@ -62,10 +62,14 @@ public class ProfessoresJdbcDAO {
 				int idProfessor = rs.getInt("idProfessor");
 				String nmProfessor = rs.getString("nmProfessor");
 				Double cpf = rs.getDouble("cpf");
+				
 				Professores professor = new Professores();
+				
 				professor.setIdProfessor(idProfessor);
 				professor.setNmProfessor(nmProfessor);
 				professor.setCpf(cpf);
+				
+				professorList.add(professor);
 			}
 			prepareStatement.close();
 		} catch (SQLException e) {
