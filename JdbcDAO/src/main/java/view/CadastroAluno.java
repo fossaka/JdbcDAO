@@ -69,11 +69,11 @@ public class CadastroAluno extends JFrame
 			cboAluno.addItemListener(new ItemListener(){
 			       public void itemStateChanged(ItemEvent ie){
 			    	   
-			            String str = (String)cboAluno.getSelectedItem();
+			           String str = (String)cboAluno.getSelectedItem();
 
 			           txtNmAluno.setText(str);
 			       }
-				});  
+				});
 			
 			paine.add(idAluno);
 			paine.add(txtIdAluno);

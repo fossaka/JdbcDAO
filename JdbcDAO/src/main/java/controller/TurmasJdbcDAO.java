@@ -59,13 +59,16 @@ public TurmasJdbcDAO(Connection conn) {
 			PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
 			ResultSet rs = prepareStatement.executeQuery();
 			while(rs.next()) {
-				int idTurmas = rs.getInt("idTurmas");
+				
+				int idTurma = rs.getInt("idTurma");
+				String nmTurma = rs.getString("nmTurma");
 				int idProfessor = rs.getInt("idProfessor");
 				int idCurso =rs.getInt("idCurso");
 				
 				Turmas turma = new Turmas();
 				
-				turma.setIdTurmas(idTurmas);
+				turma.setIdTurmas(idTurma);
+				turma.setNmTurma(nmTurma);
 				turma.setIdProfessor(idProfessor);
 				turma.setIdCurso(idCurso);
 				
@@ -76,5 +79,15 @@ public TurmasJdbcDAO(Connection conn) {
 			e.printStackTrace();
 		}
 		return listaTurmas;
+	}
+	
+	public List<Turmas> listaSpec(String c){
+		String sql = "select * from tb_turmas nmTurma = '""'";
+		List<Turmas> listaTurmas = new ArrayList<Turmas>();
+		try {
+			PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
+			ResultSet rs = prepareStatement.executeQuery();
+			
+		}
 	}
 }

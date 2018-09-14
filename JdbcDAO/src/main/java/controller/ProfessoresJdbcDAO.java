@@ -61,7 +61,7 @@ public class ProfessoresJdbcDAO {
 			while(rs.next()) {
 				int idProfessor = rs.getInt("idProfessor");
 				String nmProfessor = rs.getString("nmProfessor");
-				Double cpf = rs.getDouble("cpf");
+				int cpf = rs.getInt("cpf");
 				
 				Professores professor = new Professores();
 				

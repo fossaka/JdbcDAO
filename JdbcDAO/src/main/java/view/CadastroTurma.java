@@ -62,14 +62,14 @@ public class CadastroTurma extends JFrame {
 				cboTurmas.addItem(listaTurmas.get(i).getNmTurma());
 			}
 			
-			cboTurmas.addItemListener(new ItemListener(){
+			/*cboTurmas.addItemListener(new ItemListener(){
 			       public void itemStateChanged(ItemEvent ie){
 			    	   
 			            String str = (String)cboTurmas.getSelectedItem();
 
 			           txtIdTurma.setText(str);
 			       }
-				});  
+				}); */ 
 			
 			System.out.println(listaTurmas);
 			

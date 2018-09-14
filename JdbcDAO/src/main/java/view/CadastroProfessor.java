@@ -97,7 +97,7 @@ public class CadastroProfessor extends JFrame
 					try {
 					Professores professores = new Professores();
 					professores.setNmProfessor(txtNmProfessor.getText());
-					professores.setCpf(Double.parseDouble(txtCpf.getText()));
+					professores.setCpf(Integer.parseInt(txtCpf.getText()));
 					
 					Connection connection = JdbUtil.getConnection();
 					ProfessoresJdbcDAO professoresJdbcDao = new ProfessoresJdbcDAO(connection);
